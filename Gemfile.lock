@@ -1,3 +1,8 @@
+PATH
+  remote: vendor/engines
+  specs:
+    refinerycms-events (1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -149,5 +154,6 @@ PLATFORMS
 DEPENDENCIES
   rails (= 3.0.7)
   refinerycms (= 0.9.9.22)
+  refinerycms-events (= 1.0)!
   refinerycms-i18n (~> 1.0.0)
   sqlite3
