@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110526182841) do
+ActiveRecord::Schema.define(:version => 20110617183546) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -35,6 +35,46 @@ ActiveRecord::Schema.define(:version => 20110526182841) do
     t.string   "image_uid"
     t.string   "image_ext"
   end
+
+  create_table "membership_email_part_translations", :force => true do |t|
+    t.integer  "membership_email_part_id"
+    t.string   "locale"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "membership_email_part_translations", ["membership_email_part_id"], :name => "index_484ca56663526948d4f72cbcbeccd9df585fdb84"
+
+  create_table "membership_email_parts", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "membership_email_parts", ["title"], :name => "index_membership_email_parts_on_title", :unique => true
+
+  create_table "membership_email_translations", :force => true do |t|
+    t.integer  "membership_email_id"
+    t.string   "locale"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "membership_email_translations", ["membership_email_id"], :name => "index_2b14ae490c30075ad56da2475569e4a2ccf0cdd9"
+
+  create_table "membership_emails", :force => true do |t|
+    t.string   "title"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "membership_emails", ["title"], :name => "index_membership_emails_on_title", :unique => true
 
   create_table "page_part_translations", :force => true do |t|
     t.integer  "page_part_id"
@@ -92,6 +132,11 @@ ActiveRecord::Schema.define(:version => 20110526182841) do
   add_index "pages", ["lft"], :name => "index_pages_on_lft"
   add_index "pages", ["parent_id"], :name => "index_pages_on_parent_id"
   add_index "pages", ["rgt"], :name => "index_pages_on_rgt"
+
+  create_table "pages_roles", :id => false, :force => true do |t|
+    t.integer "page_id"
+    t.integer "role_id"
+  end
 
   create_table "refinery_settings", :force => true do |t|
     t.string   "name"
@@ -166,9 +211,9 @@ ActiveRecord::Schema.define(:version => 20110526182841) do
   add_index "user_plugins", ["user_id", "name"], :name => "index_unique_user_plugins", :unique => true
 
   create_table "users", :force => true do |t|
-    t.string   "username",             :null => false
-    t.string   "email",                :null => false
-    t.string   "encrypted_password",   :null => false
+    t.string   "username",                                :null => false
+    t.string   "email",                                   :null => false
+    t.string   "encrypted_password",                      :null => false
     t.string   "persistence_token"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -181,6 +226,21 @@ ActiveRecord::Schema.define(:version => 20110526182841) do
     t.string   "remember_token"
     t.string   "reset_password_token"
     t.datetime "remember_created_at"
+    t.boolean  "enabled",              :default => false
+    t.boolean  "is_new",               :default => true
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "title"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "website"
+    t.string   "organization"
+    t.string   "street_address"
+    t.string   "city"
+    t.integer  "province"
+    t.string   "postal_code"
+    t.datetime "member_until"
+    t.string   "membership_level"
   end
 
   add_index "users", ["id"], :name => "index_users_on_id"
