@@ -37,6 +37,8 @@ gem 'sqlite3'
 
 gem 'refinerycms', '~>1.0.0'
 
+gem 'refinerycms-memberships', '1.0', :path => 'vendor/engines'
+
 group :development, :test do
   # To use refinerycms-testing, uncomment it (if it's commented out) and run 'bundle install'
   # Then, run 'rails generate refinerycms_testing' which will copy its support files.
